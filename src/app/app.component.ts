@@ -17,7 +17,7 @@ export class AppComponent {
   
   isLoading = false;
 
-  private subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
   private destroy$ = new Subject<void>();
 
   constructor(private mockDataService: MockDataService) {}
@@ -52,7 +52,7 @@ export class AppComponent {
     this.isLoading = false;
   }
   
-  changeCharactersInput({ target }: Event): void {
+  changeCharactersInput(target: EventTarget | null): void {
     const inputElement = target as HTMLInputElement;
     const newValue = inputElement.value.trim();
     this.searchTermByCharacters.next(newValue);
@@ -70,8 +70,8 @@ export class AppComponent {
   }
 
   ngOnDestroy(): void {
+    this.subscriptions[0]?.unsubscribe();
     this.destroy$.next();
     this.destroy$.complete();
-    this.subscriptions[0].unsubscribe();
   }
 }
