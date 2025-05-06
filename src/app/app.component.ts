@@ -52,9 +52,16 @@ export class AppComponent {
     this.isLoading = false;
   }
   
-  changeCharactersInput(target: EventTarget | null): void {
-    const inputElement = target as HTMLInputElement;
-    const newValue = inputElement.value.trim();
+  changeCharactersInput(event: { target: { value: string } } | KeyboardEvent): void {
+    let newValue: string;
+
+    if (event instanceof KeyboardEvent) {
+      newValue =  (event.target as HTMLInputElement).value;
+    }
+    else {
+      newValue = event.target.value;
+    }
+    
     this.searchTermByCharacters.next(newValue);
   }
 
