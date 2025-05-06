@@ -1,3 +1,4 @@
+<loader [isLoading]="isLoading"></loader>
 <div class="content">
     <div class="logo">
         <img src="https://brandpalettes.com/wp-content/uploads/2021/06/star-wars-color-codes.svg" width="100"/>
@@ -13,18 +14,13 @@
         <ng-template #noResults> No results </ng-template>
     </ng-container>
 
-  <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
-
-  <!-- Login Form component -->
-  <!--<app-login-form></app-login-form>-->
-
-  <!-- Login Form component -->
-  <!--<app-registration-form></app-registration-form>-->
-
-  <!-- Login Form component -->
-  <!--<app-course-form></app-course-form>-->
-
-  <!-- Modal component -->
-  <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+    <button (click)="loadCharactersAndPlanet()">Load Characters And Planets</button>
+    <ng-container *ngIf="planetAndCharactersResults$ | async as results">
+        <div *ngIf="results.length > 0; else noResults">
+            <div *ngFor="let item of results">
+                {{ item.name }}
+            </div>
+        </div>
+        <ng-template #noResults> No results </ng-template>
+    </ng-container>
 </div>

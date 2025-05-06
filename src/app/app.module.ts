@@ -10,8 +10,10 @@ import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AppLoader } from '@app/loader/loader.component';
+
 @NgModule({
-  declarations: [AppComponent, CourseInfoComponent],
+  declarations: [AppComponent, CourseInfoComponent, AppLoader],
   imports: [
     BrowserModule,
     SharedModule,
