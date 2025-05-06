@@ -15,10 +15,9 @@ export class AppComponent {
   searchTermByCharacters = new BehaviorSubject<string>('');
   planetAndCharactersResults$!: Observable<any[]>;
   
-  initLoadingState!: Subscription;
   isLoading = false;
 
-  private subscriptions = new Subscription();
+  private subscriptions: Subscription[] = [];
   private destroy$ = new Subject<void>();
 
   constructor(private mockDataService: MockDataService) {}
@@ -34,7 +33,7 @@ export class AppComponent {
       takeUntil(this.destroy$)
     );
 
-    this.initLoadingState = combineLatest([
+    this.subscriptions.push(combineLatest([
       this.mockDataService.charactersLoader$, // Combine both loader observables
       this.mockDataService.planetsLoader$
     ])
@@ -44,13 +43,17 @@ export class AppComponent {
     .subscribe(([charactersLoader, planetsLoader]) => {
       // Set isLoading to true if either loader is true
       this.isLoading = charactersLoader || planetsLoader;
-    });
+    }));
 
-    this.subscriptions.add(this.initLoadingState);
+    this.initLoadingState();
   }
 
-  changeCharactersInput(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
+  initLoadingState(): void {
+    this.isLoading = false;
+  }
+  
+  changeCharactersInput({ target }: Event): void {
+    const inputElement = target as HTMLInputElement;
     const newValue = inputElement.value.trim();
     this.searchTermByCharacters.next(newValue);
   }
@@ -69,6 +72,6 @@ export class AppComponent {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.subscriptions.unsubscribe();
+    this.subscriptions[0].unsubscribe();
   }
 }
