@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, forkJoin, combineLatest } from "rxjs";
+import { Observable, Subject, BehaviorSubject, forkJoin, combineLatest, Subscription } from "rxjs";
 import { MockDataService } from './mock-data.service';
 import { distinctUntilChanged, switchMap, takeUntil, filter, debounceTime, map } from 'rxjs/operators';
 
@@ -12,17 +12,19 @@ export class AppComponent {
   title = 'courses-app';
 
   charactersResults$!: Observable<any>;
-  searchTermByCharacters$ = new BehaviorSubject<string>('');
+  searchTermByCharacters = new BehaviorSubject<string>('');
   planetAndCharactersResults$!: Observable<any[]>;
   
+  initLoadingState!: Subscription;
   isLoading = false;
 
+  private subscriptions = new Subscription();
   private destroy$ = new Subject<void>();
 
   constructor(private mockDataService: MockDataService) {}
 
   ngOnInit(): void {
-    this.charactersResults$ = this.searchTermByCharacters$.pipe(
+    this.charactersResults$ = this.searchTermByCharacters.pipe(
       debounceTime(300),
       filter(value => value.length >= 3),
       distinctUntilChanged(),
@@ -32,7 +34,7 @@ export class AppComponent {
       takeUntil(this.destroy$)
     );
 
-    combineLatest([
+    this.initLoadingState = combineLatest([
       this.mockDataService.charactersLoader$, // Combine both loader observables
       this.mockDataService.planetsLoader$
     ])
@@ -43,12 +45,14 @@ export class AppComponent {
       // Set isLoading to true if either loader is true
       this.isLoading = charactersLoader || planetsLoader;
     });
+
+    this.subscriptions.add(this.initLoadingState);
   }
 
   changeCharactersInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const newValue = inputElement.value.trim();
-    this.searchTermByCharacters$.next(newValue);
+    this.searchTermByCharacters.next(newValue);
   }
 
   loadCharactersAndPlanet(): void {
@@ -65,5 +69,6 @@ export class AppComponent {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.subscriptions.unsubscribe();
   }
 }
