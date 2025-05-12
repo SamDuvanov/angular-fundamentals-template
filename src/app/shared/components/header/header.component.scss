@@ -8,4 +8,19 @@
     padding: 0 30px;
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+
+    .login{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .login__username {
+            font-family: Open Sans;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0px;
+            text-align: right;
+        }
+    }
 }

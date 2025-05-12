@@ -1,3 +1,18 @@
+<app-header>
+    <ng-container>
+        <ng-template [ngIf]="isLoggedIn">
+            <div class="login__username">{{ userName }}</div>
+        </ng-template>
+
+        <ng-container *ngIf="isLoggedIn; else loginButton">
+            <app-button [buttonText]="'LOGOUT'" (click)="toggleLogin()"></app-button>
+        </ng-container>
+
+        <ng-template #loginButton>
+            <app-button [buttonText]="'LOGIN'" (click)="toggleLogin()"></app-button>
+        </ng-template>
+  </ng-container>
+</app-header>
 <loader [isLoading]="isLoading"></loader>
 <div class="content">
     <div class="logo">
