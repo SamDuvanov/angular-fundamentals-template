@@ -1,6 +1,6 @@
 <app-header>
     <ng-container>
-        <ng-template [ngIf]="isLoggedIn">
+        <ng-template *ngIf="isLoggedIn">
             <div class="login__username">{{ userName }}</div>
         </ng-template>
 
@@ -13,6 +13,9 @@
         </ng-template>
   </ng-container>
 </app-header>
+<app-info [title]="'Your List Is Empty'" [text]="'Please use ’Add New Course’ button to add your first course'">
+    <app-button [buttonText]="'ADD NEW COURSE'"></app-button>
+</app-info>
 <loader [isLoading]="isLoading"></loader>
 <div class="content">
     <div class="logo">
