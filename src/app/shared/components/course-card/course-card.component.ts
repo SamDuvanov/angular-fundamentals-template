@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DateService } from '@app/utils/date.service';
 
 @Component({
   selector: 'app-course-card',
@@ -15,16 +16,14 @@ export class CourseCardComponent {
   
   @Output() clickOnShow = new EventEmitter<void>();
 
+  constructor(private dateService: DateService) {}
+
   onShowCourseClicked()
   {
     this.clickOnShow.emit();
   }
 
   getFormattedDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
+    return this.dateService.getFormattedDate(date);
   }
 }

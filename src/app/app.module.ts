@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoursesModule } from './features/courses/courses/courses.component.module';
 
 import { AppLoader } from '@app/loader/loader.component';
-import { CoursesComponent } from './features/courses/courses/courses.component';
+import { CourseInfoModule } from './features/course-info/course-info.module';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent, AppLoader],
@@ -21,7 +21,8 @@ import { CoursesComponent } from './features/courses/courses/courses.component';
     SharedModule,
     FontAwesomeModule,
     HttpClientModule,
-    CoursesModule
+    CoursesModule,
+    CourseInfoModule,
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],
