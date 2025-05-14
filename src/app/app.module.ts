@@ -9,8 +9,10 @@ import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CoursesModule } from './features/courses/courses/courses.component.module';
 
 import { AppLoader } from '@app/loader/loader.component';
+import { CourseInfoModule } from './features/course-info/course-info.module';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent, AppLoader],
@@ -19,6 +21,8 @@ import { AppLoader } from '@app/loader/loader.component';
     SharedModule,
     FontAwesomeModule,
     HttpClientModule,
+    CoursesModule,
+    CourseInfoModule,
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],

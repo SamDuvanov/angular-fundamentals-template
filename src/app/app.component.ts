@@ -11,6 +11,9 @@ import { distinctUntilChanged, switchMap, takeUntil, filter, debounceTime, map }
 export class AppComponent {
   title = 'courses-app';
 
+  userName: string = 'John Doe';
+  isLoggedIn: boolean = true;
+
   charactersResults$!: Observable<any>;
   searchTermByCharacters = new BehaviorSubject<string>('');
   planetAndCharactersResults$!: Observable<any[]>;
@@ -74,6 +77,10 @@ export class AppComponent {
         return [... characters, ... planets]; // Combine results into an object
       })
     );
+  }
+
+  toggleLogin() {
+    this.isLoggedIn = !this.isLoggedIn;
   }
 
   ngOnDestroy(): void {

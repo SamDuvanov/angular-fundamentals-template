@@ -17,6 +17,7 @@
 
     &-title {
       font-weight: bold;
+      margin-bottom: 16px;
     }
   }
 
@@ -28,7 +29,20 @@
     margin-left: 50px;
 
     &-text {
-      margin-top: 16px;
+      margin-top: 32px;
     }
+
+    &-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 15px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
   }
 }

@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     padding: 13px 36px;
-    gap: 10px;
     background: #007298;
     border-radius: 4px;
     color: #fff;
@@ -17,5 +16,13 @@
 
     &__single-icon {
         padding: 13px;
+    }
+
+    &:focus {
+        background: #0389b6;
+    }
+
+    &:active {
+        background: #01526d;
     }
 }
