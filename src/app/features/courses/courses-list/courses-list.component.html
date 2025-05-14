@@ -1,0 +1,9 @@
+<app-course-card
+  *ngFor="let item of courses"
+  [title]="item.title" 
+  [description]="item.description" 
+  [creationDate]="item.creationDate" 
+  [duration]="item.duration" 
+  [authors]="item.authors"
+  [isEditable]="editable">
+</app-course-card>

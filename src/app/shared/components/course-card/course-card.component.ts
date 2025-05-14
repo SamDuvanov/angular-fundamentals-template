@@ -6,38 +6,25 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./course-card.component.scss']
 })
 export class CourseCardComponent {
-  title: string;
-  description: string;
-  creationDate: Date;
-  duration: number;
-  authors: string[];
-  @Input() isEditable: boolean;
+  @Input() title!: string;
+  @Input() description!: string;
+  @Input() creationDate!: Date;
+  @Input() duration!: number;
+  @Input() authors!: string[];
+  @Input() isEditable!: boolean;
   
-  @Output() showCourse = new EventEmitter<void>();
-  @Output() editCourse = new EventEmitter<void>();
-  @Output() deleteCourse = new EventEmitter<void>();
+  @Output() clickOnShow = new EventEmitter<void>();
 
-  constructor() {
-    this.title = '';
-    this.description = '';
-    this.creationDate = new Date();
-    this.duration = 0;
-    this.authors = [];
-    this.isEditable = true;
+  onShowCourseClicked()
+  {
+    this.clickOnShow.emit();
   }
 
-  onShowCourse()
-  {
-    this.showCourse.emit();
-  }
+  getFormattedDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
 
-  onEditCourse()
-  {
-    this.editCourse.emit();
-  }
-
-  onDeleteCourse()
-  {
-    this.deleteCourse.emit();
+    return `${day}.${month}.${year}`;
   }
 }
